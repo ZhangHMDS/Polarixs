@@ -8,7 +8,7 @@ The functions available in this package are introduced below, and example usage 
 
 ### 1 Reading OpenMolcas Data
 
-The package contains three functions to read the transition data from `.out` file. These functions requre seperately the keyword of `DIPRint/QIPRint` (default in OpenMolcas), `TRDI/TRDC`, `MEES/MESO`. 
+The package contains three functions to read the transition data from `.out` file. These functions require seperately the keyword of `DIPRint/QIPRint` (default in OpenMolcas), `TRDI/TRDC`, `MEES/MESO`. 
 
 ```
 Molcas_read_int(filename, SOC=False, Quadrupole=False, Velocity=False, Subset=0, GStates = [])
