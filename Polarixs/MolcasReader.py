@@ -161,7 +161,7 @@ def Molcas_trans_vec(filename, SOC=False):
                         data.append([from_state, to_state, complex(ReX, ImX), complex(ReY, ImY), complex(ReZ, ImZ)])
                         
     else:
-        start_line = 'Dipole transition vectors (spin-free states):'
+        start_line = 'Dipole transition strengths (spin-free states):'
 
         for i, line in enumerate(lines):
             if start_line in line:
