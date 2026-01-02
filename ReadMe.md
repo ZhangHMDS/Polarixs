@@ -117,7 +117,7 @@ pw_qd_conv(
   - For E2E1: `Ti = filteril @ Ti @ filterir`, `To = filteri @ To`.
   
 
-#### 2.3 Oriented Crystal
+#### 2.3 Oriented Crystal (beta version)
 
 For crystals, the same functions as for powders are provided, with similar parameters.
 In addition, an orientation matrix `R` must be defined. This is an Euler rotation matrix, following the coordinate convention shown in the figure above.
