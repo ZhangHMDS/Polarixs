@@ -97,7 +97,7 @@ pw_qd_conv(
     AngDep=True, theta=45, phii=0, phio=None, 
     filterinl=np.diag([1, 1, 1]), filterinr=np.diag([1, 1, 1]), 
     filterout=np.diag([1, 1, 1])
-)
+)  ## There is a problem in E2E1 process, waiting for update.
 ```
 
 **Paramaters:**
@@ -141,3 +141,6 @@ sc_qd_conv(
 
 ## Citation
 If you use Polarixs in your research, please cite it appropriately. 
+[1] arxiv.org/abs/2603.12355
+
+A new version of the code will be updated in the near future.
