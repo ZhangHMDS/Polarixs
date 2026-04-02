@@ -153,19 +153,6 @@ rixs_pal(w_inc, w_los, tensor, Operator, Gamma_n=2, Gamma_f=2,
 
 <img src="ExampleData/Angle.png" alt="figure" width="400">
 
-$$\boldsymbol{\varepsilon}_i=\begin{bmatrix}
-        \varepsilon_i\cos{\phi_i} \\ 0 \\ \varepsilon_i\sin{\phi_i}
-    \end{bmatrix} \quad
-    \boldsymbol{k}_i = \begin{bmatrix}
-        0 \\ k_i \\ 0
-    \end{bmatrix}$$
-$$\boldsymbol{\varepsilon}_o=\begin{bmatrix}
-        \varepsilon_o\cos{\phi_o}\cos{\alpha} \\ -\varepsilon_o\cos{\phi_o}\sin{\alpha} \\ \varepsilon_o\sin{\phi_o}
-    \end{bmatrix} \quad
-    \boldsymbol{k}_o = \begin{bmatrix}
-        k_o\sin{\alpha} \\ k_o\cos{\alpha} \\ 0
-    \end{bmatrix}$$
-
 * `Operator`: Str, supported transitions: E1, E2, E1E1, E1E2, E2E1 etc.
 
 
