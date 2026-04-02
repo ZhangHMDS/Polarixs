@@ -89,6 +89,7 @@ xas_conv(w_inc, T, Gamma=2, modulus_square=False)
 ```
 
 The spectrum is computed using Lorentzian convolution. 
+
 $$ I_{XAS} = \sum_{f} I_{gf} 
 \frac{\Gamma/\pi}{(E_f - E_g - \hbar\omega)^2 +\Gamma^2} $$
 
@@ -113,6 +114,7 @@ to
 ```
 
 The new RIXS dictionary can be used both for direct RIXS covolution or crystal/powder RIXS. The direct convolution is done by:
+
 $$ I_{RIXS} = \sum_{f} \sum_{n} \frac{I_{gn}I_{nf}}{(E_n - E_g - \hbar\omega_{i})^2 +\Gamma_n^2} 
 \frac{\Gamma_f/\pi}{(E_f - E_g - \hbar(\omega_{i}-\omega_{o}))^2 +\Gamma_f^2} $$
 
