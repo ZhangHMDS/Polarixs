@@ -69,4 +69,4 @@ def tensor(filename, SOC=True, Operator="E1", Subset=0, GStates=[], Threshold=0)
                 if np.sum(np.abs(tensor)) > Threshold:
                     data[(g_index, f_index)] = (energy * Ha, tensor) 
 
-        return np.array(data)
+        return data
