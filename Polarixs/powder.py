@@ -63,7 +63,9 @@ def polartensor_even(Operator, alpha, phii, psii, phio, psio):
         tensor = epsi
     if Operator == "E2":
         tensor = np.tensordot(epsi, ki, axes=0)
-
+    if Operator == "M1":
+        tensor = np.cross(ki, epsi)
+        
     if Operator == "E1E1":
         ti = epsi
         to = epso
