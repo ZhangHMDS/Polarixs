@@ -30,7 +30,7 @@ def build_tensor(Tgn, Tnf):
             if n2 != n:
                 continue
 
-            t_gnf = np.tensordot(t_gn, t_nf, axes=0) # Notice, There is no conjugation for the emission.
+            t_gnf = np.tensordot(t_gn, t_nf.conj(), axes=0) # Notice, There is no conjugation for the emission.
 
             tensor[(g, n, f)] = (w_gn, w_nf, t_gnf)
 
