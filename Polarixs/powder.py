@@ -53,8 +53,8 @@ def polartensor_even(Operator, alpha, phii, psii, phio, psio):
     ki = np.array([0, 1, 0])
 
     #### outgoing
-    epso = np.array([np.cos(phio) * np.cos(alpha), - np.cos(phio) * np.sin(alpha), np.sin(phio) * np.exp(1j*psio)])
-    ko = np.array([np.sin(alpha), np.cos(alpha), 0])
+    epso = np.array([np.cos(phio) * np.cos(alpha), - np.cos(phio) * np.sin(alpha), np.sin(phio) * np.exp(1j*psio)]).conj()
+    ko = np.array([np.sin(alpha), np.cos(alpha), 0]).conj()
 
     #### build tensor
     tensor = None
