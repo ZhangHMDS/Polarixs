@@ -17,6 +17,7 @@ def molcas_energy(filename, SOC=False):
 
     table_start = False
     skip_line = False
+    return_line = False
 
     for line in lines:
         if start_line in line:
@@ -37,7 +38,8 @@ def molcas_energy(filename, SOC=False):
                 rel_ev = float(match.group(3))
                 data[int(state)] = rel_ev
                 
-    if not data:
+    if not data and return_line:
+        return_line = True
         print("Energy Data Reading Failed!")
         
     return data
