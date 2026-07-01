@@ -65,7 +65,7 @@ def polartensor_even(Operator, alpha, phii, psii, phio, psio):
         tensor = np.tensordot(epsi, ki, axes=0)
     if Operator == "M1":
         tensor = np.cross(ki, epsi)
-        
+
     if Operator == "E1E1":
         ti = epsi
         to = epso
@@ -86,7 +86,7 @@ def polartensor_even(Operator, alpha, phii, psii, phio, psio):
         to = np.cross(ko, epso)
 
     if tensor is None:
-        tensor = np.tensordot(ti, to, axes=0)
+        tensor = np.tensordot(ti, to.conj(), axes=0)
 
     return tensor
 
@@ -124,15 +124,11 @@ def xas(w_inc, tensor, Operator, Gamma=2, status=True, phii=0, psii=0):
 ##########
 from collections import defaultdict
 
-def rixs_inc(wi, tensor, polardim, p_array, Gamma_n):
+def rixs_inc(wi, gf_map, polardim, p_array, Gamma_n):
     data = []
 
     G = G_inv[2*polardim]
     delta = Delta_index[2*polardim]
-
-    gf_map = defaultdict(list)
-    for (g, n, f), (w_gn, w_nf, t_gnf) in tensor.items():
-        gf_map[(g, f)].append((n, w_gn, w_nf, t_gnf))
 
     for (g, f), entries in gf_map.items():
         SumT = np.zeros((3,) * polardim, dtype=complex)
@@ -149,19 +145,23 @@ def rixs_inc(wi, tensor, polardim, p_array, Gamma_n):
         if Delta:
             if np.var(Delta) >= 1e-8:
                 print(f"Error: Not Matched DE_g,f! State Index: g={g}, f={f}")
+
             data.append([np.mean(Delta), I.real])
 
     return np.vstack(data)
 
 def rixs_inc_conv(args):
-    (wi, w_los, tensor, Operator, polardim, p_array, Gamma_n, Gamma_f) = args
+    (wi, w_los, gf_map, Operator, polardim, p_array, Gamma_n, Gamma_f, energy_emission) = args
 
-    inf_result = rixs_inc(wi, tensor, polardim, p_array, Gamma_n)
+    inf_result = rixs_inc(wi, gf_map, polardim, p_array, Gamma_n)
 
     Delta = inf_result[:, 0]
     Intensity = inf_result[:, 1]
     
     I_col = np.zeros(len(w_los))
+
+    if energy_emission:
+        w_los = wi - w_los
 
     for i, loss in enumerate(w_los): 
         conv = Intensity * (Gamma_f / np.pi) / ((Delta - loss)**2 + Gamma_f**2)
@@ -175,7 +175,7 @@ def rixs_inc_conv(args):
 
     return I_col
 
-def rixs(w_inc, w_los, tensor, Operator, Gamma_n=2, Gamma_f=2, status=True,
+def rixs(w_inc, w_los, tensor, Operator, Gamma_n=2, Gamma_f=2, energy_emission=False, status=True,
          alpha=90, phii=0, psii=0, phio=None, psio=0):
 
     if phio is None:
@@ -194,9 +194,13 @@ def rixs(w_inc, w_los, tensor, Operator, Gamma_n=2, Gamma_f=2, status=True,
         p_array = 0.5 * p_array
 
     I = np.zeros((len(w_los), len(w_inc)))
+
+    gf_map = defaultdict(list)
+    for (g, n, f), (w_gn, w_nf, t_gnf) in tensor.items():
+        gf_map[(g, f)].append((n, w_gn, w_nf, t_gnf))
     
     for i, wi in enumerate(w_inc):
-        args = (wi, w_los, tensor, Operator, polardim, p_array, Gamma_n, Gamma_f)   
+        args = (wi, w_los, gf_map, Operator, polardim, p_array, Gamma_n, Gamma_f, energy_emission)   
         I[:, i] = rixs_inc_conv(args)
         
         if status:
@@ -212,7 +216,7 @@ def rixs(w_inc, w_los, tensor, Operator, Gamma_n=2, Gamma_f=2, status=True,
 
 from tqdm.contrib.concurrent import process_map
 
-def rixs_pal(w_inc, w_los, tensor, Operator, Gamma_n=2, Gamma_f=2, 
+def rixs_pal(w_inc, w_los, tensor, Operator, Gamma_n=2, Gamma_f=2, energy_emission=False,
     alpha=90, phii=0, psii=0, phio=None, psio=0, 
     status=True, max_workers=None, chunksize=1
 ):
@@ -235,8 +239,12 @@ def rixs_pal(w_inc, w_los, tensor, Operator, Gamma_n=2, Gamma_f=2,
     if not tensor:
         return np.zeros((len(w_los), len(w_inc)))
 
+    gf_map = defaultdict(list)
+    for (g, n, f), (w_gn, w_nf, t_gnf) in tensor.items():
+        gf_map[(g, f)].append((n, w_gn, w_nf, t_gnf))
+
     args = [
-        (wi, w_los, tensor, Operator, polardim, p_array, Gamma_n, Gamma_f)
+        (wi, w_los, gf_map, Operator, polardim, p_array, Gamma_n, Gamma_f, energy_emission)
         for wi in w_inc
     ]
 
