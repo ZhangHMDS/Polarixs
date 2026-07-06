@@ -189,7 +189,7 @@ def rixs(w_inc, w_los, tensor, Operator, Gamma_n=2, Gamma_f=2, energy_emission=F
     p_array = np.array([np.einsum(d, polartensor.conjugate(), polartensor) for d in delta])
 
     if phio is None:    # Additional average with pi detection
-        polartensor = polartensor_even(Operator, alpha, phii, psii, 0.5*np.pi, psio)
+        polartensor = polartensor_even(Operator, alpha, phii, psii, 90, psio)
         p_array += np.array([np.einsum(d, polartensor.conjugate(), polartensor) for d in delta])
         p_array = 0.5 * p_array
 
@@ -232,7 +232,7 @@ def rixs_pal(w_inc, w_los, tensor, Operator, Gamma_n=2, Gamma_f=2, energy_emissi
     p_array = np.array([np.einsum(d, polartensor.conjugate(), polartensor) for d in delta])
 
     if phio is None:    # Additional average with pi detection
-        polartensor = polartensor_even(Operator, alpha, phii, psii, 0.5*np.pi, 0)
+        polartensor = polartensor_even(Operator, alpha, phii, psii, 90, 0)
         p_array += np.array([np.einsum(d, polartensor.conjugate(), polartensor) for d in delta])
         p_array = 0.5 * p_array    
 
