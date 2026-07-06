@@ -165,4 +165,4 @@ rixs_pal(w_inc, w_los, tensor, Operator, Gamma_n=2, Gamma_f=2,
 ## Citation
 If you use Polarixs in your research, please cite it appropriately. 
 
-[1] [https://arxiv.org/pdf/2603.12355](https://doi.org/10.1103/r37l-y2gc)
+[1] https://doi.org/10.1103/r37l-y2gc
